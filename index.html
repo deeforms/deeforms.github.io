@@ -1,0 +1,993 @@
+<!-- [Start of your HTML file] -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>ADI DRAVIDAR AND TRIBAL WELFARE DEPARTMENT</title>
+
+
+
+  <!-- ✅ Choices.js CSS for searchable dropdown -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+
+<!-- ✅ Firebase App (compat) -->
+
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+
+
+
+<script>
+
+  // ✅ Firebase Config
+
+  const firebaseConfig = {
+
+  apiKey: "AIzaSyAPu3xTPD_Tl6aC0ekW3Ypgynhdsh5tHPo",
+
+  authDomain: "student-submissions-54c53.firebaseapp.com",
+
+  projectId: "student-submissions-54c53",
+
+  storageBucket: "student-submissions-54c53.firebasestorage.app",
+
+  messagingSenderId: "1020744006862",
+
+  appId: "1:1020744006862:web:1324f0d4003e140c59e49f"
+
+};
+
+
+
+  // ✅ Initialize Firebase
+
+  firebase.initializeApp(firebaseConfig);
+
+
+
+  // ✅ Firestore DB available globally
+
+  const db = firebase.firestore();
+
+</script>
+
+  <style>
+
+    /* [Your original styles remain unchanged] */
+
+    * {
+
+      box-sizing: border-box;
+
+      margin: 0;
+
+      padding: 0;
+
+    }
+
+
+
+    body {
+
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+
+      color: #333;
+
+      line-height: 1.6;
+
+      padding: 30px 15px;
+
+      overflow-x: hidden;
+
+    }
+
+
+
+    .container {
+
+      max-width: 1000px;
+
+      margin: auto;
+
+      background: #fff;
+
+      padding: 30px;
+
+      border-radius: 10px;
+
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    }
+
+
+
+    h1 {
+
+      text-align: center;
+
+      margin-bottom: 20px;
+
+      color: #1a237e;
+
+    }
+
+
+
+    .header-logo {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin-bottom: 30px;
+
+    }
+
+
+
+    .header-logo img {
+
+      width: 80px;
+
+      height: auto;
+
+    }
+
+
+
+    .form-group {
+
+      margin-bottom: 20px;
+
+    }
+
+
+
+    label {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-weight: bold;
+
+    }
+
+
+
+    select, input {
+
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px solid #ccc;
+
+      border-radius: 6px;
+
+      font-size: 16px;
+
+      transition: border-color 0.3s;
+
+    }
+
+
+
+    select:focus, input:focus {
+
+      border-color: #1a237e;
+
+      outline: none;
+
+    }
+
+
+
+    .button {
+
+      display: inline-block;
+
+      padding: 12px 24px;
+
+      font-size: 16px;
+
+      background: #1a237e;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      transition: background 0.3s;
+
+    }
+
+
+
+    .button:hover {
+
+      background: #3949ab;
+
+    }
+
+
+
+    .hidden {
+
+      display: none;
+
+    }
+
+
+
+    .print-button {
+
+      text-align: right;
+
+      margin-top: 20px;
+
+    }
+
+
+
+    #selectedInfo {
+
+      margin-top: 20px;
+
+      font-weight: bold;
+
+      color: #3949ab;
+
+    }
+
+
+
+    .table-responsive {
+
+      overflow-x: auto;
+
+    }
+
+
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      margin-top: 20px;
+
+      font-size: 15px;
+
+    }
+
+
+
+    th, td {
+
+      padding: 12px;
+
+      border: 1px solid #ddd;
+
+      text-align: left;
+
+    }
+
+
+
+    th {
+
+      background-color: #1a237e;
+
+      color: white;
+
+    }
+
+
+
+    .info-section {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 30px;
+
+      margin-top: 40px;
+
+      justify-content: space-between;
+
+    }
+
+
+
+    .info-box {
+
+      flex: 1 1 48%;
+
+      background: #f1f8e9;
+
+      padding: 20px;
+
+      border-left: 6px solid #1a237e;
+
+      border-radius: 8px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    }
+
+
+
+    footer {
+
+      text-align: center;
+
+      margin-top: 50px;
+
+      color: #777;
+
+      font-size: 14px;
+
+    }
+
+
+
+    .apply-button {
+
+      display: inline-block;
+
+      padding: 14px 28px;
+
+      font-size: 18px;
+
+      background: linear-gradient(to right, #1a237e, #3949ab);
+
+      color: #fff;
+
+      border-radius: 8px;
+
+      text-decoration: none;
+
+      font-weight: bold;
+
+      transition: background 0.3s, transform 0.2s;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    }
+
+
+
+    .apply-button:hover {
+
+      background: linear-gradient(to right, #3949ab, #1a237e);
+
+      transform: scale(1.03);
+
+    }
+
+
+
+    .toll-free {
+
+      background: #ffeb3b;
+
+      padding: 20px;
+
+      text-align: center;
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      color: #1a237e;
+
+      border-radius: 8px;
+
+      margin-top: 40px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+  <div class="container">
+
+    <div class="header-logo">
+
+      <img src="https://raw.githubusercontent.com/AdwHappyhostel/adw/main/Tamil_Nadu_Emblem.png" />
+
+      <h1>Adi Dravidar and Tribal Welfare Department</h1>
+
+    </div>
+
+
+
+    <!-- 👤 Student Details -->
+
+<h2 style="color: #1a237e;">👤 Student Details</h2>
+
+
+
+<div class="form-group">
+
+  <div>
+
+    <label for="userName">Your Name:</label>
+
+    <input type="text" id="userName" placeholder="Enter your full name" required />
+
+  </div>
+
+
+
+  <div>
+
+    <label for="userPhone">Phone Number:</label>
+
+    <input type="tel" id="userPhone" placeholder="Enter 10-digit mobile number" maxlength="10" required />
+
+  </div>
+
+</div>
+
+
+
+<div class="form-group">
+
+  <div>
+
+    <label for="userGender">Gender:</label>
+
+    <select id="userGender" required>
+
+  <option value="">-- Select Gender --</option>
+
+  <option value="MALE">MALE</option>
+
+  <option value="FEMALE">FEMALE</option>
+
+</select>
+
+  </div>
+
+
+
+  <div>
+
+    <label for="nativeDistrict">Your Native District:</label>
+
+    <select id="nativeDistrict">
+
+      <option value="">-- Select Native District --</option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+
+    <!-- 🏫 College Details -->
+
+    <h2 style="margin-top: 30px; color: #1a237e;">🏫 College Details</h2>
+
+
+
+    <div class="form-group">
+
+      <label for="district">Select District:</label>
+
+      <select id="district">
+
+        <option value="">-- Select District --</option>
+
+      </select>
+
+    </div>
+
+
+
+    <div class="form-group">
+
+      <label for="college">Select College:</label>
+
+      <select id="college">
+
+        <option value="">-- Select College --</option>
+
+      </select>
+
+    </div>
+
+
+
+    <button class="button" id="showAllBtn">Find My Nearest Hostel</button>
+
+
+
+    <div id="report-section" class="hidden">
+
+      <div class="print-button">
+
+        <button class="button" onclick="window.print()">🖨️ Print Report</button>
+
+      </div>
+
+      <h3 id="selectedInfo"></h3>
+
+      <div id="all-hostels"></div>
+
+    </div>
+
+
+
+    <div class="info-section">
+
+      <div class="info-box">
+
+        <h3>🎯 Eligibility Criteria</h3>
+
+        <ul>
+
+          <li>✅ Enrolled in a recognized college.</li>
+
+          <li>✅ Family income below ₹2,50,000 per annum.</li>
+
+          <li>✅ Must reside in the hostel to avail the benefit.</li>
+
+        </ul>
+
+      </div>
+
+      <div class="info-box">
+
+        <h3> 🗂️ Mandatory Documents</h3>
+
+        <ul>
+
+          <li>✅ Aadhaar Number should be linked with valid mobile number.</li>
+
+          <li>✅Online community and Income certificate</li>
+
+        </ul>
+
+      </div>
+
+      <div class="info-box">
+
+        <h3>🎁 Benefits</h3>
+
+        <ul>
+
+          <li>🏠 Free accommodation.</li>
+
+          <li>🍲 Nutritious meals every day (Rs.1500 per month).</li>
+
+          <li>🛏️ Welcome kit (Mat cum bed, Bedsheet, Plate, Tumbler & Mug).</li>
+
+          <li>🧼 Polivu kit for hygiene (Hair oil, Soap, Detergent, Brush, Toothpaste).</li>
+
+          <li>📘 Supportive academic environment.</li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="toll-free">
+
+      For more information, call our Toll-Free Helpline:
+
+      <div style="margin-top: 10px; font-size: 26px;">
+
+        <a href="tel:18005997638" style="color: #1a237e; text-decoration: none;">
+
+          📞 1800-599-7638
+
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <footer>
+
+      &copy; 2025 Adi Dravidar and Tribal Welfare Department. All rights reserved.
+
+    </footer>
+
+
+
+    <!-- Scripts -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+
+
+    <script>
+
+       const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS1Wj1U-5EZOqP0c52a03jRhMLYhORW2fackyXEGh-FeOOkitjniG8MyyF1mODkIh_01LLWWONcg_1C/pub?output=csv';
+
+     // const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSepLXmdybQJ-E4AbAsN7zaiXJPRs6wFH1Qe_8oinF_n6u4lVqkR_Rm2LelN4cfgiwyQiszcSiCZSEt/pub?gid=320078882&single=true&output=csv';
+
+      let data = [];
+
+      let collegeChoices;
+
+
+
+      const districtSelect = document.getElementById("district");
+
+      const collegeSelect = document.getElementById("college");
+
+      const nativeDistrictSelect = document.getElementById("nativeDistrict");
+
+      const showAllBtn = document.getElementById("showAllBtn");
+
+      const allHostelsDiv = document.getElementById("all-hostels");
+
+      const reportSection = document.getElementById("report-section");
+
+      const selectedInfo = document.getElementById("selectedInfo");
+
+
+
+      fetch(csvUrl)
+
+        .then(res => res.text())
+
+        .then(csv => {
+
+          const parsed = Papa.parse(csv, {
+
+            header: true,
+
+            skipEmptyLines: true
+
+          });
+
+
+
+          data = parsed.data;
+
+          populateDistricts();
+
+        })
+
+        .catch(err => {
+
+          console.error('CSV Load Error:', err);
+
+          alert("Failed to load data. Please try again later.");
+
+        });
+
+
+
+      function populateDistricts() {
+
+        const districts = [...new Set(data.map(item => item["College District"]))].sort();
+
+        districts.forEach(dist => {
+
+          const option1 = document.createElement("option");
+
+          option1.value = dist;
+
+          option1.textContent = dist;
+
+          districtSelect.appendChild(option1);
+
+
+
+          const option2 = document.createElement("option");
+
+          option2.value = dist;
+
+          option2.textContent = dist;
+
+          nativeDistrictSelect.appendChild(option2);
+
+        });
+
+      }
+
+
+
+      districtSelect.addEventListener("change", () => {
+
+        const selectedDistrict = districtSelect.value;
+
+        collegeSelect.innerHTML = '<option value="">-- Select College --</option>';
+
+        allHostelsDiv.innerHTML = "";
+
+        reportSection.classList.add("hidden");
+
+
+
+        const filteredColleges = data.filter(d => d["College District"] === selectedDistrict);
+
+        const uniqueColleges = [...new Set(filteredColleges.map(d => d["College Name"]))].sort();
+
+
+
+        uniqueColleges.forEach(col => {
+
+          const option = document.createElement("option");
+
+          option.value = col;
+
+          option.textContent = col;
+
+          collegeSelect.appendChild(option);
+
+        });
+
+
+
+        if (collegeChoices) collegeChoices.destroy();
+
+        collegeChoices = new Choices(collegeSelect, {
+
+          searchEnabled: true,
+
+          itemSelectText: '',
+
+          shouldSort: false,
+
+          placeholderValue: "-- Select College --",
+
+          searchPlaceholderValue: "Search College..."
+
+        });
+
+      });
+
+
+
+      showAllBtn.addEventListener("click", () => {
+
+        const name = document.getElementById("userName").value.trim();
+
+        const phone = document.getElementById("userPhone").value.trim();
+
+        const gender = document.getElementById("userGender").value;
+
+        const nativeDistrict = document.getElementById("nativeDistrict").value;
+
+        const selectedDistrict = districtSelect.value;
+
+        const selectedCollege = collegeSelect.value;
+
+
+
+        if (!name || !phone || !gender || !nativeDistrict || !selectedDistrict || !selectedCollege) {
+
+          alert("Please fill in all fields including personal details.");
+
+          return;
+
+        }
+
+
+
+        const phoneRegex = /^[6-9]\d{9}$/;
+
+        if (!phoneRegex.test(phone)) {
+
+          alert("Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9.");
+
+          return;
+
+        }
+
+
+
+        // Submit to backend (optional)
+
+  db.collection("student_submissions").add({
+
+  name,
+
+  phone,
+
+  gender,
+
+  nativeDistrict,
+
+  selectedDistrict,
+
+  selectedCollege,
+
+  timestamp: firebase.firestore.Timestamp.now()
+
+})
+
+.then(() => console.log("Submitted to Firestore"))
+
+.catch(error => console.error("Firestore error:", error));
+
+
+
+        // Filter hostels
+
+        const matchedHostels = data.filter(
+
+          d => d["College District"] === selectedDistrict &&
+
+               d["College Name"] === selectedCollege &&
+
+               d["Gender"]?.toLowerCase() === gender.toLowerCase()
+
+        );
+
+
+
+        if (matchedHostels.length === 0) {
+
+          allHostelsDiv.innerHTML = "<p>No hostels mapped to this college for selected gender.</p>";
+
+          return;
+
+        }
+
+
+
+        selectedInfo.textContent = `College District: ${selectedDistrict} | College Name: ${selectedCollege}`;
+
+
+
+        const headers = [
+
+          { label: "Hostel Name", key: "Hostel Name" },
+
+          { label: "Hostel District", key: "Hostel District" },
+
+          { label: "HMIS ID", key: "HMIS Id" },
+
+          { label: "Gender", key: "Gender" },
+
+          { label: "Type", key: "Hostel Type" },
+
+          { label: "Hostel Address", key: "Hostel Address" },
+
+     //    { label: "Approximate Distance from College (KM)", key: "Approximate Distance From College (KM)" }
+
+        ];
+
+
+
+        const table = document.createElement("table");
+
+        const thead = document.createElement("thead");
+
+        const headerRow = document.createElement("tr");
+
+
+
+        headers.forEach(header => {
+
+          const th = document.createElement("th");
+
+          th.textContent = header.label;
+
+          headerRow.appendChild(th);
+
+        });
+
+        thead.appendChild(headerRow);
+
+        table.appendChild(thead);
+
+
+
+        const tbody = document.createElement("tbody");
+
+        matchedHostels.forEach(item => {
+
+          const row = document.createElement("tr");
+
+          headers.forEach(header => {
+
+            const td = document.createElement("td");
+
+            td.textContent = item[header.key] || "-";
+
+            row.appendChild(td);
+
+          });
+
+          tbody.appendChild(row);
+
+        });
+
+
+
+        table.appendChild(tbody);
+
+
+
+        const wrapper = document.createElement("div");
+
+        wrapper.className = "table-responsive";
+
+        wrapper.appendChild(table);
+
+
+
+        allHostelsDiv.innerHTML = "";
+
+        allHostelsDiv.appendChild(wrapper);
+
+
+
+        const applyLink = document.createElement("div");
+
+        applyLink.innerHTML = ` 
+
+          <a href="https://nallosai.tn.gov.in/form_otp.php" target="_blank" class="apply-button">
+
+            🚀 Click here to Apply for Hostel Admission
+
+          </a>
+
+        `;
+
+        applyLink.style.textAlign = "center";
+
+        applyLink.style.marginTop = "30px";
+
+        allHostelsDiv.appendChild(applyLink);
+
+
+
+        reportSection.classList.remove("hidden");
+
+        reportSection.scrollIntoView({ behavior: "smooth" });
+
+      });
+
+    </script>
+
+  </div>
+
+</body>
+
+        </html>
